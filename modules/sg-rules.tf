@@ -6,7 +6,7 @@ resource "aws_security_group" "default" {
     vpc_id      = aws_vpc.main.id
 
     tags = {
-        Name = "default"
+        Name = "eks"
     }
 
     depends_on =  [ aws_vpc.main ]
