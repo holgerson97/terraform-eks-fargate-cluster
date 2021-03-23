@@ -45,7 +45,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     name     = var.eks-cluster-name
     version  = var.kubernetes_version
-    role_arn = ""
+    role_arn = aws_iam_role.default.arn
 
     vpc_config {
 
@@ -75,12 +75,12 @@ resource "aws_eks_fargate_profile" "kube-system" {
     cluster_name           = aws_eks_cluster.eks_cluster.name
     fargate_profile_name   = "kube-system"
     pod_execution_role_arn = aws_iam_role.fargate_pod_execution.arn
-    subnet_ids             = aws_subnet.cluster_subnets[*].id
+    subnet_ids             = aws_subnet.cluster_subnets.*.id
 
     selector {
 
         namespace = "kube-system"
-        
+
     }
 
     depends_on = [
