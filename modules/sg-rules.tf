@@ -16,7 +16,7 @@ resource "aws_security_group" "default" {
 resource "aws_security_group_rule" "egress" {
 
     description       = "Allow all egress traffic"
-    
+
     from_port         = 0
     to_port           = 0
     protocol          = "-1"
@@ -25,12 +25,5 @@ resource "aws_security_group_rule" "egress" {
     type              = "egress"
 
     depends_on = [ aws_security_group.default ]
-
-}
-
-resource "aws_security_group_rule" "ingress_workers" {
-
-    description      = "Allow the cluster to receive communication from the worker nodes."
-
 
 }
