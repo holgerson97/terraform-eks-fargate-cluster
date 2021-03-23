@@ -1,5 +1,5 @@
 output "cluster-endpoint" {
 
-    value = module.cluster_endpoint
+    value = module.eks-fargate.cluster_endpoint
 
 }
