@@ -53,3 +53,14 @@ variable "kubernetes-network-cidr" {
     sensitive   = false
     
 }
+
+variable "permissions-boundary" {
+
+    description = "ARN of the policy that is used to set the permissions boundary for the role."
+
+    type        = string
+    default     = null
+
+    sensitive   = false
+
+}
