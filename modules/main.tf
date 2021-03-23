@@ -44,7 +44,7 @@ resource "aws_internet_gateway" "internet-gw" {
 resource "aws_eks_cluster" "eks-cluster" {
 
     name     = var.eks-cluster-name
-    version  = var.kuberntes.version
+    version  = var.kubernetes_version
     role_arn = ""
 
     vpc_config {
@@ -54,15 +54,15 @@ resource "aws_eks_cluster" "eks-cluster" {
 
     }
 
-    kubernetes_network_config = {
+    kubernetes_network_config {
         
-        service_ipv4_cidr = var.kubernetes-network-cdir
+        service_ipv4_cidr = var.kubernetes_network_cidr
 
     }
 
     depends_on = [
 
-        aws_subent.cluster-subnets,
+        aws_subnet.cluster-subnets,
         aws_internet_gateway.internet-gw,
         aws_security_group.default
 
