@@ -1,4 +1,4 @@
-resource "aws_security_group" "default" {
+resource "aws_security_group" "eks_sg" {
 
     description = "Security Group for EKS cluster."
 
@@ -6,7 +6,7 @@ resource "aws_security_group" "default" {
     vpc_id      = aws_vpc.main.id
 
     tags = {
-        Name = "eks"
+        Name = "eks-sg"
     }
 
     depends_on =  [ aws_vpc.main ]
@@ -21,7 +21,7 @@ resource "aws_security_group_rule" "egress" {
     to_port           = 0
     protocol          = "-1"
     cidr_blocks       = ["0.0.0.0/0"]
-    security_group_id = aws_security_group.default.id
+    security_group_id = aws_security_group.eks_sg.id
     type              = "egress"
 
     depends_on = [ aws_security_group.default ]
