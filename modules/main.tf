@@ -10,7 +10,7 @@ resource "aws_vpc" "main" {
 
 }
 
-resource "aws_subnet" "cluster-subnets" {
+resource "aws_subnet" "cluster_subnets" {
 
     for_each = var.subnet-cidr
 
@@ -49,7 +49,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     vpc_config {
 
-        subnet_ids         = [ aws_subnet.cluster-subnets.*.id ]
+        subnet_ids         = [ aws_subnet.cluster_subnets.*.id ]
         security_group_ids = [ aws_security_group.default.id ]
 
     }
@@ -62,7 +62,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     depends_on = [
 
-        aws_subnet.cluster-subnets,
+        aws_subnet.cluster_subnets,
         aws_internet_gateway.internet-gw,
         aws_security_group.default
 
@@ -85,7 +85,7 @@ resource "aws_eks_fargate_profile" "kube-system" {
 
     depends_on = [
 
-        aws_eks_cluster.eks_cluster
+        aws_eks_cluster.eks_cluster,
         aws_iam_role.fargate_pod_execution
 
     ]
