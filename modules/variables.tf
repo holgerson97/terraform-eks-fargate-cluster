@@ -32,7 +32,7 @@ variable "eks-cluster-name" {
 
 }
 
-variable "kubernetes-version" {
+variable "kubernetes_version" {
 
     description = "Version of Kubernetes (kubelet), that is going to be deploed."
 
@@ -43,7 +43,7 @@ variable "kubernetes-version" {
 
 }
 
-variable "kubernetes-network-cidr" {
+variable "kubernetes_network_cidr" {
 
     description = "Pod CIDR for Kubernetes cluster."
 
@@ -54,7 +54,7 @@ variable "kubernetes-network-cidr" {
     
 }
 
-variable "permissions-boundary" {
+variable "permissions_boundary" {
 
     description = "ARN of the policy that is used to set the permissions boundary for the role."
 
