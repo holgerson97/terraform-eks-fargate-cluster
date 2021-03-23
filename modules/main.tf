@@ -50,7 +50,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     vpc_config {
 
         subnet_ids         = [ for s in aws_subnet.cluster_subnets : s.id ]
-        security_group_ids = [ join("", aws_security_group.default.*.id) ]
+        security_group_ids = [ join("", aws_security_group.eks_sg.*.id) ]
 
     }
 
@@ -64,7 +64,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
         aws_subnet.cluster_subnets,
         aws_internet_gateway.internet-gw,
-        aws_security_group.default
+        aws_security_group.eks_sg
 
     ]
 

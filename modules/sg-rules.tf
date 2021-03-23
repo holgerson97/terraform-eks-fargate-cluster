@@ -24,6 +24,6 @@ resource "aws_security_group_rule" "egress" {
     security_group_id = aws_security_group.eks_sg.id
     type              = "egress"
 
-    depends_on = [ aws_security_group.default ]
+    depends_on = [ aws_security_group.eks_sg ]
 
 }
