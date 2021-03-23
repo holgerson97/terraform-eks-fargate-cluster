@@ -49,8 +49,8 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     vpc_config {
 
-        subnet_ids         = [ aws_subnet.cluster_subnets.*.id ]
-        security_group_ids = [ aws_security_group.default.id ]
+        subnet_ids         = [ for s in aws_subnet.cluster_subnets : s.id ]
+        security_group_ids = [ join("", aws_security_group.default.*.id) ]
 
     }
 
@@ -75,7 +75,7 @@ resource "aws_eks_fargate_profile" "kube-system" {
     cluster_name           = aws_eks_cluster.eks_cluster.name
     fargate_profile_name   = "kube-system"
     pod_execution_role_arn = aws_iam_role.fargate_pod_execution.arn
-    subnet_ids             = aws_subnet.cluster_subnets.*.id
+    subnet_ids             = [ for s in aws_subnet.cluster_subnets : s.id ]
 
     selector {
 
