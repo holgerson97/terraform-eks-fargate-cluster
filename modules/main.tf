@@ -1,6 +1,6 @@
 resource "aws_vpc" "main" {
 
-    cidr_block = var.vpc-cidr
+    cidr_block = var.vpc_cidr
 
     tags = {
 
@@ -12,7 +12,7 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "cluster_subnets" {
 
-    for_each = var.subnet-cidr
+    for_each = var.subnet_cidr
 
     vpc_id      = aws_vpc.main.id
     cidr_block  = each.value
@@ -43,9 +43,11 @@ resource "aws_internet_gateway" "internet-gw" {
 
 resource "aws_eks_cluster" "eks_cluster" {
 
-    name     = var.eks-cluster-name
+    name     = var.eks_cluster_name
     version  = var.kubernetes_version
     role_arn = aws_iam_role.default.arn
+
+    enabled_cluster_log_types = var.kubernetes_cluster_logs
 
     vpc_config {
 
@@ -64,9 +66,18 @@ resource "aws_eks_cluster" "eks_cluster" {
 
         aws_subnet.cluster_subnets,
         aws_internet_gateway.internet-gw,
-        aws_security_group.eks_sg
+        aws_security_group.eks_sg,
+        aws_cloudwatch_log_group.eks_cluster
 
     ]
+
+}
+
+resource "aws_cloudwatch_log_group" "eks_cluster" {
+
+
+  name              = "/aws/eks/${var.eks_cluster_name}/cluster"
+  retention_in_days = 7
 
 }
 
