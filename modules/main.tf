@@ -45,7 +45,15 @@ resource "aws_internet_gateway" "internet_gw" {
 
 resource "aws_eip" "nat_eip" {
 
+    count = length(var.subnet_cidr)
+
     vpc = true
+
+    tags = {
+
+        Name = "eks-cluster-eip-${count.index}"
+
+    }
 
     depends_on = [ aws_vpc.main ]
 
@@ -55,8 +63,14 @@ resource "aws_nat_gateway" "nat_gw" {
 
     for_each = aws_subnet.cluster_subnets
 
-    allocation_id = aws_eip.nat_eip.id
+    allocation_id = aws_eip.nat_eip[index(keys(aws_subnet.cluster_subnets), each.key)].id
     subnet_id     = each.value.id
+
+    tags = {
+
+        Name = "eks-cluster-nat-gw-${each.key}"
+
+    }
 
     depends_on = [ 
                     aws_eip.nat_eip,
