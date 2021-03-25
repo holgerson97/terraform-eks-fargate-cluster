@@ -35,7 +35,7 @@ resource "aws_internet_gateway" "internet_gw" {
 
   tags = {
 
-    Name = "eks-main"
+    Name = "eks-cluster-inet-gw"
 
   }
 
