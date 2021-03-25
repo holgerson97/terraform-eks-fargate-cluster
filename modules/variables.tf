@@ -1,4 +1,4 @@
-variable "vpc-cidr" {
+variable "vpc_cidr" {
     description = "CIDR of VPC where EKS is going to be deployed."
 
     type        = string
@@ -7,7 +7,7 @@ variable "vpc-cidr" {
     sensitive   = false
 }
 
-variable "subnet-cidr" {
+variable "subnet_cidr" {
     description = "CIDR for subnets, that are going to be used by EKS." 
     
     type        = map
@@ -20,7 +20,7 @@ variable "subnet-cidr" {
     sensitive   = false
 }
 
-variable "eks-cluster-name" {
+variable "eks_cluster_name" {
 
     description = "Name of the EKS cluster, that is going to be deployed."
 
@@ -52,6 +52,17 @@ variable "kubernetes_network_cidr" {
 
     sensitive   = false
     
+}
+
+variable "kubernetes_cluster_logs" {
+
+    description = "List of control pane components, that need to have active logging."
+
+    type        = list(string)
+    default     = [ "api", "audit", "authenticator", "controllerManager", "scheduler" ]
+
+    sensitive   = false
+
 }
 
 variable "permissions_boundary" {

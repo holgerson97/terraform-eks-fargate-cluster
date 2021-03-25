@@ -14,8 +14,10 @@ resource "aws_subnet" "cluster_subnets" {
 
     for_each = var.subnet_cidr
 
-    vpc_id      = aws_vpc.main.id
-    cidr_block  = each.value
+    vpc_id                  = aws_vpc.main.id
+    cidr_block              = each.value
+    map_public_ip_on_launch = false
+
 
     tags = {
         
@@ -27,7 +29,7 @@ resource "aws_subnet" "cluster_subnets" {
 
 }
 
-resource "aws_internet_gateway" "internet-gw" {
+resource "aws_internet_gateway" "internet_gw" {
 
   vpc_id = aws_vpc.main.id
 
@@ -38,6 +40,28 @@ resource "aws_internet_gateway" "internet-gw" {
   }
 
     depends_on = [ aws_vpc.main ]
+
+}
+
+resource "aws_eip" "nat_eip" {
+
+    vpc = true
+
+    depends_on = [ aws_vpc.main ]
+
+}
+
+resource "aws_nat_gateway" "nat_gw" {
+
+    for_each = aws_subnet.cluster_subnets
+
+    allocation_id = aws_eip.nat_eip.id
+    subnet_id     = each.value.id
+
+    depends_on = [ 
+                    aws_eip.nat_eip,
+                    aws_internet_gateway.internet_gw
+                 ]
 
 }
 
@@ -65,7 +89,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     depends_on = [
 
         aws_subnet.cluster_subnets,
-        aws_internet_gateway.internet-gw,
+        aws_internet_gateway.internet_gw,
         aws_security_group.eks_sg,
         aws_cloudwatch_log_group.eks_cluster
 
