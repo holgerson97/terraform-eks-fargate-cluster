@@ -1,3 +1,4 @@
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster
 resource "aws_eks_cluster" "eks_cluster" {
 
     name     = var.eks_cluster_name
@@ -19,6 +20,12 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     }
 
+    tags = {
+
+        Name = "${var.resource_name_tag_prefix}-cloudwatch-group"
+
+    }
+
     depends_on = [
 
         aws_subnet.cluster_subnets,
@@ -30,14 +37,22 @@ resource "aws_eks_cluster" "eks_cluster" {
 
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group
 resource "aws_cloudwatch_log_group" "eks_cluster" {
 
 
-  name              = "/aws/eks/${var.eks_cluster_name}/cluster"
-  retention_in_days = 7
+    name              = "/aws/eks/${var.eks_cluster_name}/cluster"
+    retention_in_days = 7
+
+    tags = {
+
+        Name = "${var.resource_name_tag_prefix}-cloudwatch-group"
+
+    }
 
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_fargate_profile
 resource "aws_eks_fargate_profile" "kube-system" {
 
     cluster_name           = aws_eks_cluster.eks_cluster.name
@@ -48,6 +63,12 @@ resource "aws_eks_fargate_profile" "kube-system" {
     selector {
 
         namespace = "kube-system"
+
+    }
+
+    tags = {
+
+        Name = "${var.resource_name_tag_prefix}-fp-kube-system"
 
     }
 
