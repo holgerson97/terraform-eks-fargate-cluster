@@ -39,7 +39,7 @@ resource "aws_subnet" "public_subnet" {
 
     tags = {
 
-        Name = "${var.resource_name_tag_prefix}-public_subnet"
+        Name = "${var.resource_name_tag_prefix}-public-subnet"
         state  = "public"
         "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
         "kubernetes.io/role/elb" = 1
