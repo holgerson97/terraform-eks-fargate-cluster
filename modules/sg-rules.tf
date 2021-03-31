@@ -7,7 +7,9 @@ resource "aws_security_group" "eks_sg" {
     vpc_id      = aws_vpc.main.id
 
     tags = {
+
         Name = "${var.resource_name_tag_prefix}-eks-sg"
+        
     }
 
     depends_on =  [ aws_vpc.main ]
