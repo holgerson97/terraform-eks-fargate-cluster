@@ -87,3 +87,25 @@ variable "permissions_boundary" {
     sensitive   = false
 
 }
+
+variable "eks_cluster_iam_role_name" {
+
+    description = "Name of EKS cluster IAM role."
+
+    type        = string
+    default     = "eks_cluster"
+
+    sensitive   = false
+
+}
+
+variable "fargate_iam_role_name" {
+
+    description = "Name of fargate pod execution IAM role."
+
+    type        = string
+    default     = "fargate_pod_execution_role"
+
+    sensitive   = false
+
+}
