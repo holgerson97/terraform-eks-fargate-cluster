@@ -116,12 +116,6 @@ resource "aws_route_table_association" "internet_route_table" {
     subnet_id      = aws_subnet.public_subnet.id
     route_table_id = aws_route_table.internet_route.id
 
-    tags = {
-
-        Name = "${var.resource_name_tag_prefix}-internet-route-table-association"
-
-    }
-
     depends_on = [ aws_route_table.internet_route ]
 
 }
@@ -182,12 +176,6 @@ resource "aws_route_table_association" "nat_route_table" {
 
     subnet_id      = aws_subnet.cluster_subnets[each.key].id
     route_table_id = aws_route_table.nat_route.id
-
-    tags = {
-
-        Name = "${var.resource_name_tag_prefix}-nat-route-table-association"
-
-    }
 
     depends_on = [ aws_route_table.nat_route ]
 
