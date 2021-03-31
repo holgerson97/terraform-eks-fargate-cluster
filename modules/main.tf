@@ -5,7 +5,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     version  = var.kubernetes_version
     role_arn = aws_iam_role.default.arn
 
-    enabled_cluster_log_types = var.kubernetes_cluster_logs
+    #enabled_cluster_log_types = var.kubernetes_cluster_logs
 
     vpc_config {
 
@@ -31,26 +31,26 @@ resource "aws_eks_cluster" "eks_cluster" {
         aws_subnet.cluster_subnets,
         aws_internet_gateway.internet_gw,
         aws_security_group.eks_sg,
-        aws_cloudwatch_log_group.eks_cluster
+        #aws_cloudwatch_log_group.eks_cluster
 
     ]
 
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group
-resource "aws_cloudwatch_log_group" "eks_cluster" {
+# resource "aws_cloudwatch_log_group" "eks_cluster" {
 
 
-    name              = "/aws/eks/${var.eks_cluster_name}/cluster"
-    retention_in_days = 7
+#     name              = "/aws/eks/${var.eks_cluster_name}/cluster"
+#     retention_in_days = 7
 
-    tags = {
+#     tags = {
 
-        Name = "${var.resource_name_tag_prefix}-cloudwatch-group"
+#         Name = "${var.resource_name_tag_prefix}-cloudwatch-group"
 
-    }
+#     }
 
-}
+# }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_fargate_profile
 resource "aws_eks_fargate_profile" "kube-system" {

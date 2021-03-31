@@ -2,7 +2,6 @@
 resource "aws_vpc" "main" {
 
     cidr_block           = var.vpc_cidr
-    enable_dns_hostnames = true
 
     tags = {
 
@@ -40,7 +39,6 @@ resource "aws_subnet" "public_subnet" {
     tags = {
 
         Name = "${var.resource_name_tag_prefix}-public-subnet"
-        state  = "public"
         "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
         "kubernetes.io/role/elb" = 1
 
@@ -99,7 +97,6 @@ resource "aws_route_table" "internet_route" {
     tags = {
 
         Name = "${var.resource_name_tag_prefix}-internet-route"
-        state = "public"
 
     }
   
@@ -136,7 +133,6 @@ resource "aws_subnet" "cluster_subnets" {
         "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
         "kubernetes.io/role/internal-elb" = 1
         Name = "${var.resource_name_tag_prefix}-${each.key}"
-        state = "private"
     }
 
     depends_on = [ aws_vpc.main ]
@@ -158,7 +154,6 @@ resource "aws_route_table" "nat_route" {
     tags = {
 
         Name = "${var.resource_name_tag_prefix}-nat-route"
-        state = "public"
 
     }
     
