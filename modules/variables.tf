@@ -29,9 +29,18 @@ variable "eks_cluster_name" {
 
     sensitive   = false
 
-
 }
 
+variable "resource_name_tag_prefix" {
+
+    description = "Default prefix for all resource names. Will be prefix-resource-type."
+
+    type        = string
+    default     = "eks-cluster"
+
+    sensitive   = false
+
+}
 variable "kubernetes_version" {
 
     description = "Version of Kubernetes (kubelet), that is going to be deploed."
