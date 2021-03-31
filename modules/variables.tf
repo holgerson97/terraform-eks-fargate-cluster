@@ -41,6 +41,7 @@ variable "resource_name_tag_prefix" {
     sensitive   = false
 
 }
+
 variable "kubernetes_version" {
 
     description = "Version of Kubernetes (kubelet), that is going to be deploed."
