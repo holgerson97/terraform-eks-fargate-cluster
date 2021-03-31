@@ -1,4 +1,5 @@
 variable "vpc_cidr" {
+    
     description = "CIDR of VPC where EKS is going to be deployed."
 
     type        = string
@@ -8,6 +9,7 @@ variable "vpc_cidr" {
 }
 
 variable "subnet_cidr" {
+
     description = "CIDR for subnets, that are going to be used by EKS." 
     
     type        = map
