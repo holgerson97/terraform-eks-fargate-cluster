@@ -9,6 +9,16 @@ After the deployment, you need to edit some settings inside your cluster manuall
 **NOTE:** This module deploys network resources too. This isn't the BPA way to provision resources, in real-world scenarios you would use a module for this to be as dynamic as possible. Anyway, you can use this Module in production, you should use tagging to not always pull the latest version, which maybe is incompatible with your configuration. The main branch is going to be always validated and ready to use.
 
 &nbsp;
+# Requirements
+| Software     |  Version  |
+| :--------    | :-------- |
+| terraform    | >= 0.14.8 |
+| kubectl      | >= 1.19   |
+| provider/aws | >= 3.33.0 |
+
+
+
+&nbsp;
 # Getting started
 
 You can use this deployment without changing any variables. The most common is to change the VPC/Subnet CIDRs nor add/remove subnets. Just copy and paste this snippet to get started.  
