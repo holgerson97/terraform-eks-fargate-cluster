@@ -6,7 +6,7 @@ To see which variables are worth changing look at the "Variables" section.
 
 After the deployment, you need to edit some settings inside your cluster manually since there are some configurations, that can't be changed with Terraform or aren't supported by this module at the time. You can see instructions at the "Deployed? What now?".  
 
-**NOTE:** This module deploys network resources too. This isn't the BPA way to provision resources, in real-world scenarios you would use a module for this to be as dynamic as possible. Anyway, you can use this Module in production, you should use tagging to not always pull the latest version, which maybe is incompatible with your configuration. The main branch is going to be always validated and ready to use.
+**NOTE:** This module deploys network resources too. This isn't the BPA way to provision resources, in real-world scenarios you would use a module for this to be as dynamic as possible. Anyway, you can use this module in production, you should use tagging to not always pull the latest version, which maybe is incompatible with your configuration. The main branch is going to be always validated and ready to use.
 
 &nbsp;
 # Requirements
