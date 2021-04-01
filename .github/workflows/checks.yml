@@ -31,11 +31,3 @@ jobs:
       - name: Terraform validate
         id: validate
         run: terraform validate
-
-      - run: echo ${{ steps.init.outputs.stdout }}
-      - run: echo ${{ steps.init.outputs.stderr }}
-      - run: echo ${{ steps.init.outputs.exitcode }}
-
-      - run: echo ${{ steps.validate.outputs.stdout }}
-      - run: echo ${{ steps.validate.outputs.stderr }}
-      - run: echo ${{ steps.validate.outputs.exitcode }}
