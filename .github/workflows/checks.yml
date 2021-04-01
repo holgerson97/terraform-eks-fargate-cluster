@@ -1,0 +1,41 @@
+name: Terraform-Configuration-Validate
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  issue_comment:
+    types: [created]     
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.8
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+
+      - run: echo ${{ steps.init.outputs.stdout }}
+      - run: echo ${{ steps.init.outputs.stderr }}
+      - run: echo ${{ steps.init.outputs.exitcode }}
+
+      - run: echo ${{ steps.validate.outputs.stdout }}
+      - run: echo ${{ steps.validate.outputs.stderr }}
+      - run: echo ${{ steps.validate.outputs.exitcode }}
