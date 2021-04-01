@@ -120,7 +120,7 @@ resource "aws_route_table_association" "internet_route_table" {
 ################################# Private Subnet Configuration ################################
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet
-resource "aws_subnet" "cluster_subnets" {
+resource "aws_subnet" "private_subnets" {
 
     for_each = var.subnet_cidr
 
@@ -159,7 +159,7 @@ resource "aws_route_table" "nat_route" {
     
     depends_on = [ 
                     aws_vpc.main,
-                    aws_subnet.cluster_subnets
+                    aws_subnet.private_subnets
                  ]
   
 }
@@ -169,7 +169,7 @@ resource "aws_route_table_association" "nat_route_table" {
 
     for_each = var.subnet_cidr
 
-    subnet_id      = aws_subnet.cluster_subnets[each.key].id
+    subnet_id      = aws_subnet.private_subnets[each.key].id
     route_table_id = aws_route_table.nat_route.id
 
     depends_on = [ aws_route_table.nat_route ]

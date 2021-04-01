@@ -9,7 +9,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     vpc_config {
 
-        subnet_ids         = [ for s in aws_subnet.cluster_subnets : s.id ]
+        subnet_ids         = [ for s in aws_subnet.private_subnets : s.id ]
         security_group_ids = [ join("", aws_security_group.eks_sg.*.id) ]
 
     }
@@ -28,7 +28,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     depends_on = [
 
-        aws_subnet.cluster_subnets,
+        aws_subnet.private_subnets,
         aws_internet_gateway.internet_gw,
         aws_security_group.eks_sg,
         aws_cloudwatch_log_group.eks_cluster
@@ -58,7 +58,7 @@ resource "aws_eks_fargate_profile" "kube-system" {
     cluster_name           = aws_eks_cluster.eks_cluster.name
     fargate_profile_name   = "kube-system"
     pod_execution_role_arn = aws_iam_role.fargate_pod_execution.arn
-    subnet_ids             = [ for s in aws_subnet.cluster_subnets : s.id ]
+    subnet_ids             = [ for s in aws_subnet.private_subnets : s.id ]
 
     selector {
 
