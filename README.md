@@ -27,7 +27,7 @@ You can use this deployment without changing any variables. The most common is t
 ```hcl
 module "eks-fargate" {
     
-    source = "github.com/holgerson97/terraform-eks-fargate-cluster//terraform-e113-vpn-s2s"
+    source = "github.com/holgerson97/terraform-eks-fargate-cluster/terraform-eks-fargate-cluster"
     
 }
 ```
@@ -36,7 +36,7 @@ module "eks-fargate" {
 ```hcl
 module "eks-fargate" {
     
-    source = "github.com/holgerson97/terraform-eks-fargate-cluster//terraform-e113-vpn-s2s"
+    source = "github.com/holgerson97/terraform-eks-fargate-cluster//terraform-eks-fargate-cluster"
 
     eks_cluster_name   = "eks-cluster-stage"
     kubernetes_version = "1.19"
