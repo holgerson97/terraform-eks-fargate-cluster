@@ -83,6 +83,7 @@ After that, you can change the aws-auth config map and add your roles, groups, a
 kubectl edit configmap -n kube-system aws-auth
 ```
 Reference: https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
+
 &nbsp;
 ## Updating CoreDNS deployment to run on Fargate
 By default, the CoreDNS deployment is configured to run on worker nodes. Since we don't attach any worker node pools to the EKS cluster you need to patch the deployment. Currently, it's not possible to patch deployment via the Kubernetes Terraform provider, so you need to do it by hand.
@@ -98,3 +99,36 @@ kubectl patch deployment coredns \
 kubectl rollout restart -n kube-system deployment coredns
 ```
 Reference: https://docs.aws.amazon.com/eks/latest/userguide/fargate-getting-started.html
+
+&nbsp;
+## Adding more Fargate profiles
+In case you want to add more deployments/replicasets/... to your EKS cluster, that don't run in kube-system namespace and/or need a different selector (e.g. labels), you need to add more Fargate profiles. You can simply add them to your root configuration.
+
+&nbsp;
+```hcl
+resource "aws_eks_fargate_profile" "<resource_name>" {
+
+    cluster_name           = module.<name_of_this_module>.cluster_name
+    fargate_profile_name   = <name_of_fargate_profile>
+    pod_execution_role_arn = module.<name_of_this_module>.pod_execution_role_arn
+    subnet_ids             = <subnets_where_you_want_to_deploy>
+
+    selector {
+
+        namespace = <namesapce_selector>
+
+    }
+
+    tags = {
+
+        Name = <name_of_fargate_profile>
+
+    }
+
+    depends_on = [ module.<name_of_this_module> ]
+}
+```
+
+&nbsp;
+## Contributing
+Feel free to create pull requests.
