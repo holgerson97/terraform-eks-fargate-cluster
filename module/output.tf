@@ -12,7 +12,7 @@ output "cluster_name" {
 
     description = "The name of your cluster. Mainly used to add additional Fargate profiles."
 
-    value = aws_eks_cluster.eks_cluster.eks_cluster_name
+    value = aws_eks_cluster.eks_cluster.name
 
     sensitive = false
 
@@ -22,7 +22,7 @@ output "private_subnets" {
 
     description = "Private subnets allocated to the EKS cluster. This is where your pods go."
 
-    value = aws_subnet.private_subnets.cidr_block
+    value = aws_subnet.private_subnets[each.key]
 
     sensitive = false
 
@@ -32,7 +32,7 @@ output "public_subnets" {
 
     description = "Pulbic subnets used to route traffic to and from your pods."
 
-    value = aws_subnet.public_subnet.cidr_block
+    value = aws_subnet.public_subnet
 
     sensitive = false
 
