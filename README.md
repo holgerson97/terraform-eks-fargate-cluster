@@ -1,4 +1,5 @@
 ![Terraform](https://github.com/holgerson97/terraform-eks-fargate-cluster/actions/workflows/checks.yml/badge.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # Terraform EKS Fargate Cluster
 
