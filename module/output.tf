@@ -22,7 +22,9 @@ output "private_subnets" {
 
     description = "Private subnets allocated to the EKS cluster. This is where your pods go."
 
-    value = aws_subnet.private_subnets[each.key]
+    value = toset ([
+        for s in aws_subnet.private_subnets : s
+    ])
 
     sensitive = false
 
