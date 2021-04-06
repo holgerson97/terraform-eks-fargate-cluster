@@ -1,3 +1,5 @@
+![Terraform](https://github.com/holgerson97/terraform-eks-fargate-cluster/actions/workflows/checks.yml/badge.svg)
+
 # Terraform EKS Fargate Cluster
 
 This module provides a fully functional EKS Fargate only cluster, which should be used to get started with EKS Fargate and/or test workloads.
