@@ -1,21 +1,17 @@
-output "cluster_endpoint" {
+output "eks_cluster_general" {
 
-    description = "The endpoint of your cluster."
-
-    value = aws_eks_cluster.eks_cluster.endpoint
-
-    sensitive = false
+    description = "General cluster information."
+  
+    value = data.aws_eks_cluster.eks_cluster
 
 }
 
-output "cluster_name" {
+output "eks_cluster_auth" {
 
-    description = "The name of your cluster. Mainly used to add additional Fargate profiles."
+    description = "Cluster information to get access token. Used to connect kubernetes provider."
 
-    value = aws_eks_cluster.eks_cluster.name
-
-    sensitive = false
-
+    value = data.aws_eks_clsuter_auth.eks_cluster
+  
 }
 
 output "private_subnets" {
