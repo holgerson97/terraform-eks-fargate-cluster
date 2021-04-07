@@ -33,16 +33,6 @@ variable "eks_cluster_name" {
 
 }
 
-variable "resource_name_tag_prefix" {
-
-    description = "Default prefix for all resource names. Will be prefix-resource-type."
-
-    type        = string
-    default     = "eks-cluster"
-
-    sensitive   = false
-
-}
 
 variable "kubernetes_version" {
 
@@ -54,6 +44,19 @@ variable "kubernetes_version" {
     sensitive   = false
 
 }
+
+variable "resource_name_tag_prefix" {
+
+    description = "Default prefix for all resource names. Will be prefix-resource-type."
+
+    type        = string
+    default     = "eks-cluster"
+
+    sensitive   = false
+
+}
+
+
 
 variable "kubernetes_network_cidr" {
 
