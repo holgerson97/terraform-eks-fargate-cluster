@@ -20,7 +20,7 @@ variable "openid_url" {
 
 }
 
-variable "openid_clien_id" {
+variable "openid_client_id" {
 
     description = "Provider specific OpenID application specifier."
     
@@ -53,8 +53,8 @@ resource "aws_iam_openid_connect_provider" "main" {
 
     count           = var.openid_enabled == true ? 1 : 0
 
-    client_id_list  = var.openid_clien_id
-    url             = ws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+    client_id_list  = var.openid_client_id
+    url             = aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
 
     thumbprint_list = [data.tls_certificate.openid_tls.certificates[0].sha1_fingerprint]
   
