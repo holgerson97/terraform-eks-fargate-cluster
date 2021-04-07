@@ -10,7 +10,7 @@ output "eks_cluster_auth" {
 
     description = "Cluster information to get access token. Used to connect kubernetes provider."
 
-    value = data.aws_eks_clsuter_auth.eks_cluster
+    value = data.aws_eks_cluster_auth.eks_cluster
   
 }
 
