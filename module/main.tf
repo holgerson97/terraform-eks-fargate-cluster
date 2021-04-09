@@ -1,3 +1,9 @@
+provider "aws" {
+
+    region = var.region
+  
+}
+
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster
 resource "aws_eks_cluster" "eks_cluster" {
 

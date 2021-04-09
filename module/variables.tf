@@ -1,3 +1,10 @@
+variable "region" {
+
+    type = string
+    default = "eu-central-1"
+  
+}
+
 variable "vpc_cidr" {
     
     description = "CIDR of VPC where EKS is going to be deployed."
