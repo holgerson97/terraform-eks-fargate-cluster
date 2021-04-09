@@ -26,6 +26,12 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     }
 
+    lifecycle {
+      
+        create_before_destroy = true
+
+    }
+
     depends_on = [
 
         aws_subnet.private_subnets,
@@ -35,6 +41,13 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     ]
 
+    timeouts {
+      
+        create = "30m"
+        update = "30m"
+        delete = "30m" 
+
+    }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group
@@ -72,10 +85,23 @@ resource "aws_eks_fargate_profile" "kube-system" {
 
     }
 
+    lifecycle {
+      
+        create_before_destroy = true
+
+    }
+
     depends_on = [
 
         aws_eks_cluster.eks_cluster,
         aws_iam_role.fargate_pod_execution
 
     ]
+
+    timeouts {
+      
+        create = "20m"
+        delete = "20m" 
+
+    }
 }
